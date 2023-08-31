@@ -1,0 +1,53 @@
+h4 {
+    font-size: 18px;}
+
+label {
+    display: flex;
+    border: solid 2px skyblue;
+    border-radius: 15px;
+    width: fit-content;
+    height: 40px;
+    margin: 4px;
+    color: skyblue;
+    background-color: white;
+    text-align: center;
+    line-height: 80px;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-in-out;
+    padding:8px
+
+}
+label img {
+    width: 20px;
+    margin-right: 5px;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+input:checked+label {
+    transition: all 0.5s ease-in-out;
+    border: solid 2px dodgerblue;
+    color: white;
+    background-color: dodgerblue;
+  
+}
+label:hover {
+    cursor: pointer;
+}
+input[type="submit"]{
+     border-radius: 15px;
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+  float:left;
+
+}
+input[type="submit"]:hover{
+  cursor:pointer;
+  background-color:black;
+  color:white;
+  
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProgramDAO">
+
+<!-- 등록 -->
+	<insert id="insertProgram">
+		insert into programtbl(
+		p_title,
+		p_agencyid,p_startdate,p_enddate,p_open,p_close,p_demand,p_target,p_dayweek,p_onoff,p_starttime,
+		p_endtime,p_createDate, p_agname, p_agaddrs, p_manager, p_content ) values (#{p_title},
+		#{p_agencyid},
+		#{p_startdate},#{p_enddate},
+		#{p_open},#{p_close},#{p_demand},#{p_target},#{p_dayweek},#{p_onoff},#{p_starttime},
+		#{p_endtime},DATE(NOW()), #{p_agname}, #{p_agaddrs}, #{p_manager}, #{p_content})
+	</insert>
+<!-- 수정 -->
+	<update id="updateProgram">
+		UPDATE programtbl SET
+		p_title=#{p_title},p_startdate=#{p_startdate},p_enddate=#{p_enddate},p_open=#{p_open},p_close=#{p_close},
+		p_demand=#{p_demand},p_target=#{p_target},p_dayweek=#{p_dayweek},p_onoff=#{p_onoff},p_content=#{p_content}
+		,p_starttime = #{p_starttime},p_endtime= #{p_endtime} WHERE p_id =
+		${p_id};
+	</update>
+	
+
+	<!-- 기관 마이페이지에서 해당기관 봉사리스트 가져오기용(기본..) -->
+	<select id="getProgramList" resultType="program">
+		SELECT * FROM programtbl
+		WHERE p_agencyid = #{mem_id}
+	</select>
+
+	<!-- 기관 마이페이지에서 해당기관 봉사리스트 가져오기용(모집중인 리스트) -->
+	<select id="getPgListOn" resultType="program">
+	<![CDATA[ 
+	SELECT * FROM programtbl
+		WHERE (p_agencyid = #{mem_id}) AND 
+		(p_close > DATE(NOW()) OR (p_close = p_enddate and p_close = date(now()) AND timediff(p_starttime, time(now())) > 2) AND 
+		(p_open <= DATE(NOW())))
+		
+		 ]]>
+	</select>
+	<!-- 기관 마이페이지에서 해당기관 봉사리스트 가져오기용(완료된 리스트) -->
+	<select id="getPgListEnd" resultType="program">
+	<![CDATA[ 
+	select * from programtbl where (p_agencyid = #{mem_id}) AND 
+	(p_close < DATE(NOW()) or (p_close = p_enddate and p_close = date(now()) AND timediff(p_starttime, time(now())) < 2)); 
+		 ]]>
+
+	</select>
+
+	<!-- 봉사리스트에서 항목 선택했을때 해당 항목 상세페이지에 노출할 정보 가져오기 -->
+	<select id="getProgramOne" resultType="program">
+		SELECT * FROM programtbl
+		WHERE p_id = #{p_id}
+	</select>
+
+
+
+	<select id="getTitleList" resultType="program">
+		select p_id,p_title,
+		SUBSTRING(p_content, 1, 100) as 'p_content',
+		p_createDate from
+		programtbl
+	</select>
+
+	<select id="findAll" resultType="program">
+		select p_id, p_title,
+		SUBSTRING(p_content, 1, 100) as 'p_content', p_createDate from
+		programtbl
+	</select>
+
+</mapper>

@@ -1,0 +1,22 @@
+
+.support_button {
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    margin:0 auto;
+    margin-bottom: 50px;
+}
+.support_button:hover {
+    opacity: 1
+}
+.support_btn{
+	margin-top:30px;
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ApplyDAO">
+	<!-- <insert id="insertBoard"> insert into board( title, writer, content) 
+		values(#{title},#{writer},#{content}) </insert> <update id="updateBoard"> 
+		update board set title=#{title}, content=#{content} where seq=#{seq} </update> 
+		<delete id="deleteBoard"> delete board where seq=#{seq} </delete> <select 
+		id="getBoard" resultType="board"> select * from board where seq=#{seq} </select> -->
+
+	<!-- <insert id="insertapply"> insert into applytbl(ap_pid, ap_ptitle, ap_pdate, 
+		ap_ptime, ap_aid ,ap_aname ,ap_mid ,ap_mname ,ap_mphone ,ap_mrole,ap_applyDate,ap_state 
+		) values (#{ap_pid}, #{ap_ptitle} , #{ap_pdate} ,#{ap_ptime} , #{ap_aid},#{ap_aname} 
+		,#{ap_mid} ,#{ap_mname} ,#{ap_mphone} ,#{ap_mrole},#{ap_applyDate},#{ap_state}) 
+		</insert> -->
+	<insert id="insertapply" useGeneratedKeys="true"
+		keyProperty="ap_id">
+		insert into applytbl(ap_pid, ap_ptitle,
+		ap_pdate,ap_aid
+		,ap_aname ,ap_mid ,ap_mname ,ap_mphone
+		,ap_mrole,ap_state,ap_applyDate
+		,ap_ptime)
+		values (#{ap_pid}, #{ap_ptitle} , #{ap_pdate}
+		,#{ap_aid},#{ap_aname} ,#{ap_mid} ,#{ap_mname} ,#{ap_mphone}
+		,#{ap_mrole},#{ap_state},#{ap_applyDate}, #{ap_ptime})
+	</insert>
+
+	<update id="applyconfirm">
+		UPDATE applytbl SET ap_state = #{ap_state} WHERE
+		ap_id = ${ap_id};
+	</update>
+	<update id="myapplcancle">
+		UPDATE applytbl SET ap_state = #{ap_state} WHERE
+		ap_id = ${ap_id};
+	</update>
+	
+	
+	<update id="applyreview">
+		UPDATE applytbl SET ap_rv = 1 WHERE
+		ap_id = ${ap_id};
+	</update>
+
+
+
+	<select id="getApplyById" resultType="apply">
+		SELECT * FROM applytbl
+		WHERE ap_id = #{ap_id}
+	</select>
+
+
+	<select id="getuserlistyet" resultType="apply">
+		SELECT * FROM applytbl
+		<where>
+		
+		(ap_state ="신청(미승인)" OR ap_state LIKE "반려%" OR
+		ap_state ="확정(승인)" OR ap_state = "활동미완료")
+			<if test="ap_mid != null and ap_mid !=''">
+				AND ap_mid = #{ap_mid}
+			</if>
+		</where>
+	</select>
+	<select id="getuserlistend" resultType="apply">
+		SELECT * FROM applytbl
+		
+		<where>
+		ap_state ="활동완료"
+			<if test="ap_mid != null and ap_mid !=''">
+				ap_mid = #{ap_mid}
+			</if>
+		</where>
+	</select>
+
+	<select id="applyUnList" resultType="apply">
+		SELECT * FROM applytbl
+		<where>
+			(ap_state ="신청(미승인)" OR ap_state LIKE "반려%")
+
+			<if test="ap_aid != null and ap_aid !=''">
+				AND ap_aid = #{ap_aid}
+			</if>
+		</where>
+	</select>
+
+	<select id="applyConfirmed" resultType="apply">
+		SELECT * FROM applytbl
+		<where>
+			(ap_state ="확정(승인)" OR ap_state = "활동미완료")
+			<if test="ap_aid != null and ap_aid !=''">
+				AND
+				ap_aid = #{ap_aid}
+			</if>
+		</where>
+
+	</select>
+	<select id="applyFinished" resultType="apply">
+		SELECT * FROM applytbl
+		<where>
+			ap_state ="활동완료"
+			<if test="ap_aid != null and ap_aid !=''">
+				AND
+				ap_aid = #{mem_id}
+			</if>
+		</where>
+
+	</select>
+
+
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>	
+	<!-- Alias 설정 -->
+	<typeAliases>
+		<typeAlias alias="program" type="com.bongsa.biz.program.ProgramVO" />
+		<typeAlias alias="user" type="com.bongsa.biz.user.UserVO" />
+		<typeAlias alias="apply" type="com.bongsa.biz.apply.ApplyVO" />
+		<typeAlias alias="review" type="com.bongsa.biz.review.ReviewVO" />
+	</typeAliases>
+	
+	<!-- Sql Mapper 설정 -->
+	<mappers>
+		<mapper resource="./mappings/program-mapper.xml" />
+		<mapper resource="./mappings/user-mapper.xml" />
+		<mapper resource="./mappings/apply-mapper.xml" />
+		<mapper resource="./mappings/review-mapper.xml" />
+	</mappers>
+</configuration>
+

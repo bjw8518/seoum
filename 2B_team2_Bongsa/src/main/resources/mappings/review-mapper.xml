@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewDAO">
+
+	<insert id="insertreview">
+		insert into reviewtbl (
+		r_apid ,r_pid ,r_aid
+		,r_mid,
+		r_createDate , r_content ,r_free ,r_time ,r_first ,r_learn
+		,ez_locate
+		,bathroom ,locate_clean ,answer ,satisfied ,r_memory
+		,soez, safety )
+
+		values(
+		#{r_apid} ,#{r_pid} ,#{r_aid}
+		,#{r_mid}, #{r_createDate} , #{r_content}
+		,#{r_free} ,#{r_time} ,#{r_first} ,#{r_learn}
+		,#{ez_locate}
+		,#{bathroom} ,#{locate_clean} ,#{answer} ,#{satisfied} ,#{r_memory}
+		,#{soez}, #{safety}
+		)
+	</insert>
+	
+	<select id="getReviewContent" resultType="String">
+		select r_content from reviewtbl where r_apid = #{r_apid}
+	</select>
+
+
+
+</mapper>
