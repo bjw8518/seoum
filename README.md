@@ -1,4 +1,7 @@
 # seoum
+스프링MVC를 활용한 봉사활동 프로젝트 입니다
+
+
 ![미디어1 mp4_20230831_104634 291](https://github.com/bjw8518/seoum/assets/17807767/2a308ed8-463f-45e0-bc8f-5f4694a5180a)
 ![미디어2 mp4_20230831_104647 987](https://github.com/bjw8518/seoum/assets/17807767/d1e10651-f2e0-4e56-8120-29d473a06511)
 ![미디어3 mp4_20230831_104655 803](https://github.com/bjw8518/seoum/assets/17807767/8254eb30-8242-49e7-9727-96e73ee409a9)
